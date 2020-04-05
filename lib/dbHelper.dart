@@ -10,11 +10,15 @@ class DBhelper
   //WidgetsFlutterBinding.ensureInitialized();
   Future<Database> database() async
   {
-      final database = openDatabase(join(await getDatabasesPath(), 'doggie_database.db'),onCreate: (db, version) 
+      var database;
+      if(database == null)
       {
-        return db.execute("CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
-      );
-    },version: 1,);
+          database = openDatabase(join(await getDatabasesPath(), 'doggie_database.db'),onCreate: (db, version) 
+          {
+            return db.execute("CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)",
+          );
+          },version: 1,);
+      }
     return database;
   }
   
